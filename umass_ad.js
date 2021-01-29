@@ -326,7 +326,7 @@ function NPVOnly(WBP,SSOP,EVal,EPr,crVal,fee1,fee2,wCost,OM,tx) {
 // Navigation
 function nav(location) {
     document.getElementById("home").style.display = location == 1 ? 'block' : 'none';
-	document.getElementById("past-work").style.display = location == 2 ? 'block' : 'none';
+	document.getElementById("about-ad").style.display = location == 2 ? 'block' : 'none';
 	document.getElementById("about-us").style.display = location == 3 ? 'block' : 'none';
 	document.getElementById("calculator").style.display = location == 4 ? 'block' : 'none';
 }

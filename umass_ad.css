@@ -59,7 +59,7 @@ body {
 
 .container {
 	margin-top: 20px;
-	padding: 15px;
+	padding: 10px;
 	background-color: white;
 }
 
@@ -176,7 +176,7 @@ th {
 }
 
 /* MUST STAY AT BOTTOM */
-#past-work, #about-us, #calculator {
+#about-ad, #about-us, #calculator {
 	display: none;
 }
 
