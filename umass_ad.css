@@ -176,7 +176,7 @@ th {
 }
 
 /* MUST STAY AT BOTTOM */
-#about-ad, #about-us, #calculator {
+#about-us, #past-work, #calculator {
 	display: none;
 }
 
