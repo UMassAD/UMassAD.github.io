@@ -2,8 +2,6 @@
 var WBPro = 19700.0;
 var SSOPro = 30323.0;
 var opDays = 365;
-// var WBTonPerYr = 20000.0;
-// var SSOTonPerYr = 20000.0;
 var totalCC = 18448000.0;
 
 var naturalGasEVal = 0.6;
@@ -82,6 +80,10 @@ function calc() {
 	// (10) O&M Costs
 	// (11) Town Taxes
 	// (12) SSO Tipping Revenues
+	var SSOTonPerYr = (1.084*SSOPro/2000*opDays/0.3);
+	var WBTonPerYr = (0.5*WBPro/2000*opDays/0.06);
+	document.getElementById("SSOTonPerYr").innerHTML = "SSO Ton Per Yr: " + SSOTonPerYr.toFixed(2);
+	document.getElementById("WBTonPerYr").innerHTML = "WB Ton Per Yr: " + WBTonPerYr.toFixed(2);
 	var SSOTipRev1 = tipFee1 * (1.084*SSOPro/2000*opDays/0.3);
 	var SSOTipRev2 = tipFee2 * (1.084*SSOPro/2000*opDays/0.3); // 75% To account for less demand
 	document.getElementById("SSOTipRev1").innerHTML = "Annual Revenue from SSO Tips in Period 1 ($/yr): " + SSOTipRev1.toFixed(2);
