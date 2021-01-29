@@ -1,0 +1,195 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+}
+
+body {
+	--primary-color: #881c1c; 
+	--secondary-color: #d1c8c8;
+	--tertiary-color: #353535;
+	background-color: var(--secondary-color);
+	color: var(--primary-color);
+	text-align: center;
+	margin: 0;
+	height: 100%;
+	font-family: Helvetica;
+}
+
+/* Heading & Navigation */
+
+.header {
+    background-color: var(--primary-color);
+    color: white;
+	margin: 0;
+	padding-top: 10px;
+	font-size: 30px;
+}
+
+.nav-bar {
+	display: flex;
+	background-color: var(--primary-color);
+	width: 100%;
+}
+
+.nav-button {
+    background: transparent;
+    outline: none;
+	color: white;
+	font-size: 20px;
+	padding: 3px;
+	margin: 0px 7px;
+	cursor: pointer;
+}
+.nav-button:hover {
+    background-color: #5d2a2c;
+}
+.nav-button:focus {
+    background-color: #5d2a2c;
+}
+
+/* Sections */
+
+.section {
+    margin: 20px;
+    color: var(--tertiary-color);
+    text-align: justify;
+}
+
+.container {
+	margin-top: 20px;
+	padding: 10px;
+	background-color: white;
+}
+
+/* Calculator */
+
+#form-container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.group-fieldset {
+	width: 49.5%;
+}
+
+.calculator-fieldset {
+	position: relative;
+	margin: 5px 0;
+	padding: 0px 5px;
+}
+
+#form-container input {
+	width: 20%;
+	float: right;
+	padding: 0px 2px;
+	border: 1px solid black;
+	border-radius: 4px;
+	background-color: rgb(250, 250, 250);
+	text-align: end;
+}
+
+#form-container button {
+	background-color: rgb(135, 228, 135);
+	padding: 2px;
+	border: 2px solid black;
+	border-radius: 4px;
+	font-size: 1.5em;
+}
+
+.tooltip-text, .tooltip-text-right {
+	visibility: hidden;
+	position: absolute;
+	z-index: 1;
+	bottom: 110%;
+	padding: 5px;
+	border: 2px solid black;
+	border-radius: 4px;
+	background-color: black;
+	opacity: 85%;
+	color: white;
+	text-align: center;
+	font-weight: normal;
+}
+
+label .tooltip-text {
+	left: 10px;
+}
+
+th .tooltip-text {
+	left: 10px;
+	right: -150px;
+}
+
+th .tooltip-text-right {
+	right: 10px;
+	left: -150px;
+}
+
+.tooltip-text::after , .tooltip-text-right::after {
+	content: " ";
+	position: absolute;
+	top: 100%; 
+	border-width: 5px;
+	border-style: solid;
+	border-color: black transparent transparent transparent;
+}
+
+.tooltip-text::after {
+	left: 10px;
+}
+
+.tooltip-text-right::after {
+	right: 10px;
+}
+
+label:hover .tooltip-text, th:hover .tooltip-text, th:hover .tooltip-text-right, .result-display:hover .tooltip-text {
+	visibility: visible;
+}
+
+table {
+	position: relative;
+	margin: 0 auto;
+	border-collapse: collapse;
+}
+
+th, td {
+	position: relative;
+	border: 1px solid black;
+	padding: 2px;
+	text-align: right;
+}
+
+th {
+	text-align: center;
+}
+
+#results-container {
+	overflow-x: scroll;
+}
+
+.result-display {
+	position: relative;
+	margin: 3px 0;
+}
+
+/* MUST STAY AT BOTTOM */
+#about-ad, #about-us, #calculator {
+	display: none;
+}
+
+/* Removing Input Arrows */
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
