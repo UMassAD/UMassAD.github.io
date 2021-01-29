@@ -64,7 +64,7 @@ function calc() {
 	document.getElementById("bioOut").innerHTML = "Total Biogas Ouput (cf/day): " + bioOut;
 	// (5) Total Biogas (cf/yr) assuming linear relation
 	var totalBioPerYr = bioOut*opDays;
-	// Hard code in electricity conversion
+	// Hard code in electricity conversion (!!!)
 	var MePerYr = 0.685*0.66*totalBioPerYr/35.3147; // m^3 methane per yr
 	document.getElementById("totalBioPerYr").innerHTML = "Total Biogas (cf/yr): " + totalBioPerYr.toFixed(2);
 	document.getElementById("MePerYr").innerHTML = "Methane (m^3/yr): " + MePerYr.toFixed(2);
@@ -196,6 +196,7 @@ function calc() {
 	// Sensitivity Analysis
 	var sensBody = document.getElementById("sensitivity-body");
 	// Vary WBPro
+	//console.log(NPVOnly(WBPro,SSOPro,naturalGasEVal,EPrice,creditVal,tipFee1,tipFee2,workCost,OMCosts,tax));
 	sensArray[0][0] = NPVOnly(1.1*WBPro,SSOPro,naturalGasEVal,EPrice,creditVal,tipFee1,tipFee2,workCost,OMCosts,tax).toFixed(2) - NPV.toFixed(2);
 	sensArray[0][1] = NPVOnly(0.9*WBPro,SSOPro,naturalGasEVal,EPrice,creditVal,tipFee1,tipFee2,workCost,OMCosts,tax).toFixed(2) - NPV.toFixed(2);
 	sensBody.rows[0].cells[1].innerHTML = sensArray[0][0].toFixed(2);
@@ -253,7 +254,7 @@ function NPVOnly(WBP,SSOP,EVal,EPr,crVal,fee1,fee2,wCost,OM,tx) {
 	var bioOut = 15*0.5*0.44333*WBP + 13.6*0.697*1.084*SSOP;
 	// (5) Total Biogas (cf/yr) assuming linear relation
 	var totalBioPerYr = bioOut*opDays;
-	var MePerYr = 0.66*totalBioPerYr/35.3147; // m^3 methane per yr
+	var MePerYr = 0.685*0.66*totalBioPerYr/35.3147; // m^3 methane per yr
 	// (6) Energy Value Computation
 	var kWhPerYr = 0.6*EVal*MePerYr/3.6;
 	// (7) Total Electricity Savings ($/yr)
