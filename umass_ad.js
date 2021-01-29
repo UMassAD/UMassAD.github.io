@@ -64,7 +64,8 @@ function calc() {
 	document.getElementById("bioOut").innerHTML = "Total Biogas Ouput (cf/day): " + bioOut;
 	// (5) Total Biogas (cf/yr) assuming linear relation
 	var totalBioPerYr = bioOut*opDays;
-	var MePerYr = 0.66*totalBioPerYr/35.3147; // m^3 methane per yr
+	// Hard code in electricity conversion
+	var MePerYr = 0.685*0.66*totalBioPerYr/35.3147; // m^3 methane per yr
 	document.getElementById("totalBioPerYr").innerHTML = "Total Biogas (cf/yr): " + totalBioPerYr.toFixed(2);
 	document.getElementById("MePerYr").innerHTML = "Methane (m^3/yr): " + MePerYr.toFixed(2);
 	// (6) Energy Value Computation
