@@ -195,48 +195,48 @@ function calc() {
 	// Vary WBPro
 	sensArray[0][0] = NPVOnly(1.1*WBPro,SSOPro,naturalGasEVal,EPrice,creditVal,tipFee1,tipFee2,workCost,OMCosts,tax).toFixed(2) - NPV.toFixed(2);
 	sensArray[0][1] = NPVOnly(0.9*WBPro,SSOPro,naturalGasEVal,EPrice,creditVal,tipFee1,tipFee2,workCost,OMCosts,tax).toFixed(2) - NPV.toFixed(2);
-	sensBody.rows[0].cells[1].innerHTML = sensArray[0][0];
-	sensBody.rows[1].cells[1].innerHTML = sensArray[0][1];
+	sensBody.rows[0].cells[1].innerHTML = sensArray[0][0].toFixed(2);
+	sensBody.rows[1].cells[1].innerHTML = sensArray[0][1].toFixed(2);
 	// Vary SSOPro
 	sensArray[1][0] = NPVOnly(WBPro,1.1*SSOPro,naturalGasEVal,EPrice,creditVal,tipFee1,tipFee2,workCost,OMCosts,tax).toFixed(2) - NPV.toFixed(2);
 	sensArray[1][1] = NPVOnly(WBPro,0.9*SSOPro,naturalGasEVal,EPrice,creditVal,tipFee1,tipFee2,workCost,OMCosts,tax).toFixed(2) - NPV.toFixed(2);
-	sensBody.rows[0].cells[2].innerHTML = sensArray[1][0];
-	sensBody.rows[1].cells[2].innerHTML = sensArray[1][1];
+	sensBody.rows[0].cells[2].innerHTML = sensArray[1][0].toFixed(2);
+	sensBody.rows[1].cells[2].innerHTML = sensArray[1][1].toFixed(2);
 	// Vary naturalGasEVal
 	sensArray[2][0] = NPVOnly(WBPro,SSOPro,1.1*naturalGasEVal,EPrice,creditVal,tipFee1,tipFee2,workCost,OMCosts,tax).toFixed(2) - NPV.toFixed(2);
 	sensArray[2][1] = NPVOnly(WBPro,SSOPro,0.9*naturalGasEVal,EPrice,creditVal,tipFee1,tipFee2,workCost,OMCosts,tax).toFixed(2) - NPV.toFixed(2);
-	sensBody.rows[0].cells[3].innerHTML = sensArray[2][0];
-	sensBody.rows[1].cells[3].innerHTML = sensArray[2][1];
+	sensBody.rows[0].cells[3].innerHTML = sensArray[2][0].toFixed(2);
+	sensBody.rows[1].cells[3].innerHTML = sensArray[2][1].toFixed(2);
 	// Vary EPrice
 	sensArray[3][0] = NPVOnly(WBPro,SSOPro,naturalGasEVal,1.1*EPrice,creditVal,tipFee1,tipFee2,workCost,OMCosts,tax).toFixed(2) - NPV.toFixed(2);
 	sensArray[3][1] = NPVOnly(WBPro,SSOPro,naturalGasEVal,0.9*EPrice,creditVal,tipFee1,tipFee2,workCost,OMCosts,tax).toFixed(2) - NPV.toFixed(2);
-	sensBody.rows[0].cells[4].innerHTML = sensArray[3][0];
-	sensBody.rows[1].cells[4].innerHTML = sensArray[3][1];
+	sensBody.rows[0].cells[4].innerHTML = sensArray[3][0].toFixed(2);
+	sensBody.rows[1].cells[4].innerHTML = sensArray[3][1].toFixed(2);
 	// Vary creditVal
 	sensArray[4][0] = NPVOnly(WBPro,SSOPro,naturalGasEVal,EPrice,1.1*creditVal,tipFee1,tipFee2,workCost,OMCosts,tax).toFixed(2) - NPV.toFixed(2);
 	sensArray[4][1] = NPVOnly(WBPro,SSOPro,naturalGasEVal,EPrice,0.9*creditVal,tipFee1,tipFee2,workCost,OMCosts,tax).toFixed(2) - NPV.toFixed(2);
-	sensBody.rows[0].cells[5].innerHTML = sensArray[4][0];
-	sensBody.rows[1].cells[5].innerHTML = sensArray[4][1];
+	sensBody.rows[0].cells[5].innerHTML = sensArray[4][0].toFixed(2);
+	sensBody.rows[1].cells[5].innerHTML = sensArray[4][1].toFixed(2);
 	// Vary tip fees
 	sensArray[5][0] = NPVOnly(WBPro,SSOPro,naturalGasEVal,EPrice,creditVal,1.1*tipFee1,1.1*tipFee2,workCost,OMCosts,tax).toFixed(2) - NPV.toFixed(2);
 	sensArray[5][1] = NPVOnly(WBPro,SSOPro,naturalGasEVal,EPrice,creditVal,0.9*tipFee1,0.9*tipFee2,workCost,OMCosts,tax).toFixed(2) - NPV.toFixed(2);
-	sensBody.rows[0].cells[6].innerHTML = sensArray[5][0];
-	sensBody.rows[1].cells[6].innerHTML = sensArray[5][1];
+	sensBody.rows[0].cells[6].innerHTML = sensArray[5][0].toFixed(2);
+	sensBody.rows[1].cells[6].innerHTML = sensArray[5][1].toFixed(2);
 	// Vary OM Costs
 	sensArray[6][0] = NPVOnly(WBPro,SSOPro,naturalGasEVal,EPrice,creditVal,tipFee1,tipFee2,workCost,1.1*OMCosts,tax).toFixed(2) - NPV.toFixed(2);
 	sensArray[6][1] = NPVOnly(WBPro,SSOPro,naturalGasEVal,EPrice,creditVal,tipFee1,tipFee2,workCost,0.9*OMCosts,tax).toFixed(2) - NPV.toFixed(2);
-	sensBody.rows[0].cells[7].innerHTML = sensArray[6][0];
-	sensBody.rows[1].cells[7].innerHTML = sensArray[6][1];
+	sensBody.rows[0].cells[7].innerHTML = sensArray[6][0].toFixed(2);
+	sensBody.rows[1].cells[7].innerHTML = sensArray[6][1].toFixed(2);
 	// Vary Taxes
 	sensArray[7][0] = NPVOnly(WBPro,SSOPro,naturalGasEVal,EPrice,creditVal,tipFee1,tipFee2,workCost,OMCosts,1.1*tax).toFixed(2) - NPV.toFixed(2);
 	sensArray[7][1] = NPVOnly(WBPro,SSOPro,naturalGasEVal,EPrice,creditVal,tipFee1,tipFee2,workCost,OMCosts,0.9*tax).toFixed(2) - NPV.toFixed(2);
-	sensBody.rows[0].cells[8].innerHTML = sensArray[7][0];
-	sensBody.rows[1].cells[8].innerHTML = sensArray[7][1];
+	sensBody.rows[0].cells[8].innerHTML = sensArray[7][0].toFixed(2);
+	sensBody.rows[1].cells[8].innerHTML = sensArray[7][1].toFixed(2);
 	// Vary Work Costs
 	sensArray[8][0] = NPVOnly(WBPro,SSOPro,naturalGasEVal,EPrice,creditVal,tipFee1,tipFee2,1.1*workCost,OMCosts,tax).toFixed(2) - NPV.toFixed(2);
 	sensArray[8][1] = NPVOnly(WBPro,SSOPro,naturalGasEVal,EPrice,creditVal,tipFee1,tipFee2,0.9*workCost,OMCosts,tax).toFixed(2) - NPV.toFixed(2);
-	sensBody.rows[0].cells[9].innerHTML = sensArray[8][0];
-	sensBody.rows[1].cells[9].innerHTML = sensArray[8][1];
+	sensBody.rows[0].cells[9].innerHTML = sensArray[8][0].toFixed(2);
+	sensBody.rows[1].cells[9].innerHTML = sensArray[8][1].toFixed(2);
 
 	// Charts
 	PVChart.data.datasets.data = PVTable;
@@ -412,7 +412,13 @@ var sensChart = new Chart(sensctx, {
 		},
 		scales: {
             xAxes: [{
-                stacked: true
+				stacked: true,
+				scaleLabel: {
+					display: true,
+					labelString: 'Change in NPV',
+					fontSize: 16,
+					fontColor: '#353535'
+				}
             }],
             yAxes: [{
                 stacked: true
