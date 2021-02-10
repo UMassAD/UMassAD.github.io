@@ -20,12 +20,12 @@ var depreciationYrs = 12;
 var numWorkers = 5;
 var workCost = 60000.0;
 var workingCapital = 3000000.0;
-var discountRate = 0.0585;
+var discountRate = 0.07;
 
 var yearTable = Array(17).fill(0);
 var PVTable = Array(17).fill(0);
 
-var sensArray = [[1,-1],[1,-1],[1,-1],[1,-1],[1,-1],[1,-1],[1,-1],[1,-1],[1,-1]];
+var sensArray = [[1,-1],[1,-1],[1,-1],[1,-1],[1,-1],[1,-1],[1,-1],[1,-1]];
 
 // Calculator Value Update Function
 function updateVal() {
@@ -60,38 +60,38 @@ function calc() {
 	// Update values from form
 	updateVal();
 	// (0) Calculate Biogas output
-	var bioOut = 15*0.5*0.44333*WBPro + 13.6*0.697*1.084*SSOPro;
-	document.getElementById("bioOut").innerHTML = "Total Biogas Ouput (cf/day): " + bioOut;
+	var bioOut = 3.325*WBPro + 10.275*SSOPro;
+	document.getElementById("bioOut").innerHTML = bioOut.toFixed(2);
 	// (5) Total Biogas (cf/yr) assuming linear relation
 	var totalBioPerYr = bioOut*opDays;
 	// Hard code in electricity conversion (!!!)
 	var MePerYr = 0.685*0.66*totalBioPerYr/35.3147; // m^3 methane per yr
-	document.getElementById("totalBioPerYr").innerHTML = "Total Biogas (cf/yr): " + totalBioPerYr.toFixed(2);
-	document.getElementById("MePerYr").innerHTML = "Methane (m^3/yr): " + MePerYr.toFixed(2);
+	document.getElementById("totalBioPerYr").innerHTML = totalBioPerYr.toFixed(2);
+	document.getElementById("MePerYr").innerHTML = MePerYr.toFixed(2);
 	// (6) Energy Value Computation
 	var kWhPerYr = 0.6*naturalGasEVal*MePerYr/3.6;
-	document.getElementById("kWhPerYr").innerHTML = "Total Energy per year (kWh/yr): " + kWhPerYr.toFixed(2);
+	document.getElementById("kWhPerYr").innerHTML = kWhPerYr.toFixed(2);
 	// (7) Total Electricity Savings ($/yr)
 	var ESavings = EPrice*kWhPerYr;
-	document.getElementById("ESavings").innerHTML = "Electricity Savings from Energy ($/yr): " + ESavings.toFixed(2);
+	document.getElementById("ESavings").innerHTML = "$" + ESavings.toFixed(2);
 	// (8) Renewable Energy Credits and Tax Breaks
 	var creditValPerYr = kWhPerYr/1000*creditVal;
-	document.getElementById("creditValPerYr").innerHTML = "Annual Renewables Credit Value ($/yr): " + creditValPerYr.toFixed(2);
+	document.getElementById("creditValPerYr").innerHTML = "$" + creditValPerYr.toFixed(2);
 	// (9) Adjusting for Num Biodigesters
 	// (10) O&M Costs
 	// (11) Town Taxes
 	// (12) SSO Tipping Revenues
 	var SSOTonPerYr = (1.084*SSOPro/2000*opDays/0.3);
 	var WBTonPerYr = (0.5*WBPro/2000*opDays/0.06);
-	document.getElementById("SSOTonPerYr").innerHTML = "SSO Ton Per Yr: " + SSOTonPerYr.toFixed(2);
-	document.getElementById("WBTonPerYr").innerHTML = "WB Ton Per Yr: " + WBTonPerYr.toFixed(2);
+	document.getElementById("SSOTonPerYr").innerHTML = SSOTonPerYr.toFixed(2);
+	document.getElementById("WBTonPerYr").innerHTML = WBTonPerYr.toFixed(2);
 	var SSOTipRev1 = tipFee1 * (1.084*SSOPro/2000*opDays/0.3);
-	var SSOTipRev2 = tipFee2 * (1.084*SSOPro/2000*opDays/0.3); // 75% To account for less demand
-	document.getElementById("SSOTipRev1").innerHTML = "Annual Revenue from SSO Tips in Period 1 ($/yr): " + SSOTipRev1.toFixed(2);
-	document.getElementById("SSOTipRev2").innerHTML = "Annual Revenue from SSO Tips in Period 2 ($/yr): " + SSOTipRev2.toFixed(2);
+	var SSOTipRev2 = tipFee2 * (1.084*SSOPro/2000*opDays/0.3); 
+	document.getElementById("SSOTipRev1").innerHTML = "$" + SSOTipRev1.toFixed(2);
+	document.getElementById("SSOTipRev2").innerHTML = "$" + SSOTipRev2.toFixed(2);
 	// (13) Depreciation
 	var depreciationVal = totalCC * (1-salvagePercent) / depreciationYrs;
-	document.getElementById("depreciationVal").innerHTML = "Depreciation Value ($/yr): " + depreciationVal.toFixed(2);
+	document.getElementById("depreciationVal").innerHTML = "$" + depreciationVal.toFixed(2);
 
 	// Results Table ("book")
 	var bookBody = document.getElementById("book-body");
@@ -206,52 +206,47 @@ function calc() {
 	sensArray[1][1] = NPVOnly(WBPro,0.9*SSOPro,naturalGasEVal,EPrice,creditVal,tipFee1,tipFee2,workCost,OMCosts,tax).toFixed(2) - NPV.toFixed(2);
 	sensBody.rows[0].cells[2].innerHTML = sensArray[1][0].toFixed(2);
 	sensBody.rows[1].cells[2].innerHTML = sensArray[1][1].toFixed(2);
-	// Vary naturalGasEVal
-	sensArray[2][0] = NPVOnly(WBPro,SSOPro,1.1*naturalGasEVal,EPrice,creditVal,tipFee1,tipFee2,workCost,OMCosts,tax).toFixed(2) - NPV.toFixed(2);
-	sensArray[2][1] = NPVOnly(WBPro,SSOPro,0.9*naturalGasEVal,EPrice,creditVal,tipFee1,tipFee2,workCost,OMCosts,tax).toFixed(2) - NPV.toFixed(2);
+	// Vary EPrice
+	sensArray[2][0] = NPVOnly(WBPro,SSOPro,naturalGasEVal,1.1*EPrice,creditVal,tipFee1,tipFee2,workCost,OMCosts,tax).toFixed(2) - NPV.toFixed(2);
+	sensArray[2][1] = NPVOnly(WBPro,SSOPro,naturalGasEVal,0.9*EPrice,creditVal,tipFee1,tipFee2,workCost,OMCosts,tax).toFixed(2) - NPV.toFixed(2);
 	sensBody.rows[0].cells[3].innerHTML = sensArray[2][0].toFixed(2);
 	sensBody.rows[1].cells[3].innerHTML = sensArray[2][1].toFixed(2);
-	// Vary EPrice
-	sensArray[3][0] = NPVOnly(WBPro,SSOPro,naturalGasEVal,1.1*EPrice,creditVal,tipFee1,tipFee2,workCost,OMCosts,tax).toFixed(2) - NPV.toFixed(2);
-	sensArray[3][1] = NPVOnly(WBPro,SSOPro,naturalGasEVal,0.9*EPrice,creditVal,tipFee1,tipFee2,workCost,OMCosts,tax).toFixed(2) - NPV.toFixed(2);
+	// Vary creditVal
+	sensArray[3][0] = NPVOnly(WBPro,SSOPro,naturalGasEVal,EPrice,1.1*creditVal,tipFee1,tipFee2,workCost,OMCosts,tax).toFixed(2) - NPV.toFixed(2);
+	sensArray[3][1] = NPVOnly(WBPro,SSOPro,naturalGasEVal,EPrice,0.9*creditVal,tipFee1,tipFee2,workCost,OMCosts,tax).toFixed(2) - NPV.toFixed(2);
 	sensBody.rows[0].cells[4].innerHTML = sensArray[3][0].toFixed(2);
 	sensBody.rows[1].cells[4].innerHTML = sensArray[3][1].toFixed(2);
-	// Vary creditVal
-	sensArray[4][0] = NPVOnly(WBPro,SSOPro,naturalGasEVal,EPrice,1.1*creditVal,tipFee1,tipFee2,workCost,OMCosts,tax).toFixed(2) - NPV.toFixed(2);
-	sensArray[4][1] = NPVOnly(WBPro,SSOPro,naturalGasEVal,EPrice,0.9*creditVal,tipFee1,tipFee2,workCost,OMCosts,tax).toFixed(2) - NPV.toFixed(2);
+	// Vary tip fees
+	sensArray[4][0] = NPVOnly(WBPro,SSOPro,naturalGasEVal,EPrice,creditVal,1.1*tipFee1,1.1*tipFee2,workCost,OMCosts,tax).toFixed(2) - NPV.toFixed(2);
+	sensArray[4][1] = NPVOnly(WBPro,SSOPro,naturalGasEVal,EPrice,creditVal,0.9*tipFee1,0.9*tipFee2,workCost,OMCosts,tax).toFixed(2) - NPV.toFixed(2);
 	sensBody.rows[0].cells[5].innerHTML = sensArray[4][0].toFixed(2);
 	sensBody.rows[1].cells[5].innerHTML = sensArray[4][1].toFixed(2);
-	// Vary tip fees
-	sensArray[5][0] = NPVOnly(WBPro,SSOPro,naturalGasEVal,EPrice,creditVal,1.1*tipFee1,1.1*tipFee2,workCost,OMCosts,tax).toFixed(2) - NPV.toFixed(2);
-	sensArray[5][1] = NPVOnly(WBPro,SSOPro,naturalGasEVal,EPrice,creditVal,0.9*tipFee1,0.9*tipFee2,workCost,OMCosts,tax).toFixed(2) - NPV.toFixed(2);
+	// Vary OM Costs
+	sensArray[5][0] = NPVOnly(WBPro,SSOPro,naturalGasEVal,EPrice,creditVal,tipFee1,tipFee2,workCost,1.1*OMCosts,tax).toFixed(2) - NPV.toFixed(2);
+	sensArray[5][1] = NPVOnly(WBPro,SSOPro,naturalGasEVal,EPrice,creditVal,tipFee1,tipFee2,workCost,0.9*OMCosts,tax).toFixed(2) - NPV.toFixed(2);
 	sensBody.rows[0].cells[6].innerHTML = sensArray[5][0].toFixed(2);
 	sensBody.rows[1].cells[6].innerHTML = sensArray[5][1].toFixed(2);
-	// Vary OM Costs
-	sensArray[6][0] = NPVOnly(WBPro,SSOPro,naturalGasEVal,EPrice,creditVal,tipFee1,tipFee2,workCost,1.1*OMCosts,tax).toFixed(2) - NPV.toFixed(2);
-	sensArray[6][1] = NPVOnly(WBPro,SSOPro,naturalGasEVal,EPrice,creditVal,tipFee1,tipFee2,workCost,0.9*OMCosts,tax).toFixed(2) - NPV.toFixed(2);
+	// Vary Taxes
+	sensArray[6][0] = NPVOnly(WBPro,SSOPro,naturalGasEVal,EPrice,creditVal,tipFee1,tipFee2,workCost,OMCosts,1.1*tax).toFixed(2) - NPV.toFixed(2);
+	sensArray[6][1] = NPVOnly(WBPro,SSOPro,naturalGasEVal,EPrice,creditVal,tipFee1,tipFee2,workCost,OMCosts,0.9*tax).toFixed(2) - NPV.toFixed(2);
 	sensBody.rows[0].cells[7].innerHTML = sensArray[6][0].toFixed(2);
 	sensBody.rows[1].cells[7].innerHTML = sensArray[6][1].toFixed(2);
-	// Vary Taxes
-	sensArray[7][0] = NPVOnly(WBPro,SSOPro,naturalGasEVal,EPrice,creditVal,tipFee1,tipFee2,workCost,OMCosts,1.1*tax).toFixed(2) - NPV.toFixed(2);
-	sensArray[7][1] = NPVOnly(WBPro,SSOPro,naturalGasEVal,EPrice,creditVal,tipFee1,tipFee2,workCost,OMCosts,0.9*tax).toFixed(2) - NPV.toFixed(2);
+	// Vary Work Costs
+	sensArray[7][0] = NPVOnly(WBPro,SSOPro,naturalGasEVal,EPrice,creditVal,tipFee1,tipFee2,1.1*workCost,OMCosts,tax).toFixed(2) - NPV.toFixed(2);
+	sensArray[7][1] = NPVOnly(WBPro,SSOPro,naturalGasEVal,EPrice,creditVal,tipFee1,tipFee2,0.9*workCost,OMCosts,tax).toFixed(2) - NPV.toFixed(2);
 	sensBody.rows[0].cells[8].innerHTML = sensArray[7][0].toFixed(2);
 	sensBody.rows[1].cells[8].innerHTML = sensArray[7][1].toFixed(2);
-	// Vary Work Costs
-	sensArray[8][0] = NPVOnly(WBPro,SSOPro,naturalGasEVal,EPrice,creditVal,tipFee1,tipFee2,1.1*workCost,OMCosts,tax).toFixed(2) - NPV.toFixed(2);
-	sensArray[8][1] = NPVOnly(WBPro,SSOPro,naturalGasEVal,EPrice,creditVal,tipFee1,tipFee2,0.9*workCost,OMCosts,tax).toFixed(2) - NPV.toFixed(2);
-	sensBody.rows[0].cells[9].innerHTML = sensArray[8][0].toFixed(2);
-	sensBody.rows[1].cells[9].innerHTML = sensArray[8][1].toFixed(2);
 
 	// Charts
 	PVChart.data.datasets.data = PVTable;
 	PVChart.update();
-	sensChart.data.datasets[0].data = [sensArray[0][0],sensArray[1][0],sensArray[2][0],sensArray[3][0],sensArray[4][0],sensArray[5][0],sensArray[6][0],sensArray[7][0],sensArray[8][0]];
-	sensChart.data.datasets[1].data = [sensArray[0][1],sensArray[1][1],sensArray[2][1],sensArray[3][1],sensArray[4][1],sensArray[5][1],sensArray[6][1],sensArray[7][1],sensArray[8][1]];
+	sensChart.data.datasets[0].data = [sensArray[0][0],sensArray[1][0],sensArray[2][0],sensArray[3][0],sensArray[4][0],sensArray[5][0],sensArray[6][0],sensArray[7][0]];
+	sensChart.data.datasets[1].data = [sensArray[0][1],sensArray[1][1],sensArray[2][1],sensArray[3][1],sensArray[4][1],sensArray[5][1],sensArray[6][1],sensArray[7][1]];
 	sensChart.update();
 }
 
 function NPVOnly(WBP,SSOP,EVal,EPr,crVal,fee1,fee2,wCost,OM,tx) {
-	var bioOut = 15*0.5*0.44333*WBP + 13.6*0.697*1.084*SSOP;
+	var bioOut = 3.325*WBP + 10.275*SSOP;
 	// (5) Total Biogas (cf/yr) assuming linear relation
 	var totalBioPerYr = bioOut*opDays;
 	var MePerYr = 0.685*0.66*totalBioPerYr/35.3147; // m^3 methane per yr
@@ -388,17 +383,17 @@ var sensctx = document.getElementById('sensitivity-chart');
 var sensChart = new Chart(sensctx, {
 	type: 'horizontalBar',
 	data: {
-		labels: ['WB Processing','SSO Processing','Natural Gas Energy Value','Electricity Price','Renewable Energy Credit Value','SSO Tipping Fees','O&M Costs','Town Taxes','Cost Per Worker'],
+		labels: ['WB Processing','SSO Processing','Electricity Price','Renewable Energy Credit Value','SSO Tipping Fees','O&M Costs','Town Taxes','Cost Per Worker'],
 		datasets: [{
 			label: '+10%',
-			data: [sensArray[0][0],sensArray[1][0],sensArray[2][0],sensArray[3][0],sensArray[4][0],sensArray[5][0],sensArray[6][0],sensArray[7][0],sensArray[8][0]],
+			data: [sensArray[0][0],sensArray[1][0],sensArray[2][0],sensArray[3][0],sensArray[4][0],sensArray[5][0],sensArray[6][0],sensArray[7][0]],
 			backgroundColor: 'rgba(27, 171, 44, 0.3)',
 			borderColor: 'rgba(27, 171, 44, 0.7)',
 			borderWidth: 1
 		},
 		{
 			label: '-10%',
-			data: [sensArray[0][1],sensArray[1][1],sensArray[2][1],sensArray[3][1],sensArray[4][1],sensArray[5][1],sensArray[6][1],sensArray[7][1],sensArray[8][1]],
+			data: [sensArray[0][1],sensArray[1][1],sensArray[2][1],sensArray[3][1],sensArray[4][1],sensArray[5][1],sensArray[6][1],sensArray[7][1]],
 			backgroundColor: 'rgba(179, 27, 27, 0.3)',
 			borderColor: 'rgba(179, 27, 27, 0.7)',
 			borderWidth: 1	

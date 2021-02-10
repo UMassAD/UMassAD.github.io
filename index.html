@@ -184,29 +184,49 @@
                     <label for="discountRate">Discount Rate (Decimal &#60; 1):
                         <span class="tooltip-text">??? TO ADD ???</span>
                     </label>
-                    <input type="number" id="discountRate" value=0.0585>
+                    <input type="number" id="discountRate" value=0.07>
                 </fieldset>
             </fieldset>
             <button onclick="calc()">Calculate</button><br>
         </div>   
         <div class="container" id="results-container">
-            <div class="result-display" id="NPV"><b><u>Net Present Value ($):</u></b> </div>
+            <div class="NPV-result-display" id="NPV"><b><u>Net Present Value ($):</u></b> </div>
             <br>
-            <h1>System Outputs</h1>
-            <div class="result-display" id="bioOut">Total Biogas Ouput (cf/day): </div>
-            <div class="result-display" id="totalBioPerYr">Total Biogas (cf/yr): </div>
-            <div class="result-display" id="MePerYr">Methane (m^3/yr): </div>
-
-            <div class="result-display" id="SSOTonPerYr">SSO Ton Per Yr: </div>
-            <div class="result-display" id="WBTonPerYr">WB Ton Per Yr: </div>
-
-            <div class="result-display" id="kWhPerYr">Total Energy per year (kWh/yr): </div>
-            <h1>Revenue Items</h1>
-            <div class="result-display" id="ESavings">Electricity Savings from Energy ($/yr): </div>
-            <div class="result-display" id="creditValPerYr">Annual Renewables Credit Value ($/yr): </div>
-            <div class="result-display" id="SSOTipRev1">Annual Revenue from SSO Tips in Period 1 ($/yr): </div>
-            <div class="result-display" id="SSOTipRev2">Annual Revenue from SSO Tips in Period 2 ($/yr): </div>
-            <div class="result-display" id="depreciationVal">Depreciation Value ($/yr): </div><br>
+            <h1 class="result-display-heading">System Outputs</h1>
+            <div class="result-display">Total Biogas Ouput (cf/day): 
+                <div class="result-number" id="bioOut"></div>
+            </div>
+            <div class="result-display">Total Biogas (cf/yr): 
+                <div class="result-number" id="totalBioPerYr"></div>
+            </div>
+            <div class="result-display">Methane (m^3/yr): 
+                <div class="result-number" id="MePerYr"></div>
+            </div>
+            <div class="result-display">SSO Ton Per Yr: 
+                <div class="result-number" id="SSOTonPerYr"></div>
+            </div>
+            <div class="result-display">WB Ton Per Yr: 
+                <div class="result-number" id="WBTonPerYr"></div>
+            </div>
+            <div class="result-display">Total Energy per year (kWh/yr): 
+                <div class="result-number" id="kWhPerYr"></div>
+            </div>
+            <h1 class="result-display-heading">Revenue Items</h1>
+            <div class="result-display">Electricity Savings from Energy ($/yr): 
+                <div class="result-number" id="ESavings"></div>
+            </div>
+            <div class="result-display">Annual Renewables Credit Value ($/yr): 
+                <div class="result-number" id="creditValPerYr"></div>
+            </div>
+            <div class="result-display">Annual Revenue from SSO Tips in Period 1 ($/yr): 
+                <div class="result-number" id="SSOTipRev1"></div>
+            </div>
+            <div class="result-display">Annual Revenue from SSO Tips in Period 2 ($/yr): 
+                <div class="result-number" id="SSOTipRev2"></div>
+            </div>
+            <div class="result-display">Depreciation Value ($/yr): 
+                <div class="result-number" id="depreciationVal"></div>
+            </div><br>
             <table id="book-table">
                 <thead id="book-head">
                     <tr class="book-row">
@@ -498,7 +518,6 @@
                         <th></th>
                         <th>WB Processing</th>
                         <th>SSO Processing</th>
-                        <th>Natural Gas Energy Value</th>
                         <th>Electricity Price</th>
                         <th>Renewable Energy Credit Value</th>
                         <th>SSO Tipping Fees</th>
@@ -518,11 +537,9 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td></td>
                     </tr>
                     <tr>
                         <th>-10%</th>
-                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
